@@ -1,7 +1,9 @@
 swift-format-action
 ====
 
-# Example GitHub Action Workflow
+GitHub Action to run [apple/swift-format](https://github.com/apple/swift-format).
+
+# GitHub Action Workflow Examples
 
 ## Lint only
 
@@ -13,7 +15,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -23,20 +25,46 @@ jobs:
           # Full git history is needed to get a proper list of changed files
           fetch-depth: 0
       - name: Lint
-        uses: mtgto/swift-format-action
+        uses: mtgto/swift-format-action@main
         with:
-          configurationFile: .swift-format
+          # Please comment out if you won't specify configuration file
+          configuration_file: .swift-format
           # default is false
-          allFiles: true
+          all_files: false
+          # default is -1 (infinity)
+          max_warnings: -1
 ```
 
-## Commit & Push formatted code automatically
+## Format code automatically
 
 ```yaml
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Auto Correct
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          # Full git history is needed to get a proper list of changed files
+          fetch-depth: 0
+      - name: Lint
+        uses: mtgto/swift-format-action@main
+        with:
+          # Please comment out if you won't specify configuration file
+          configuration_file: .swift-format
+          # default is false
+          all_files: false
+          # default is false
+          auto_correct: true
+          # default is -1 (infinity)
+          max_warnings: -1
 ```
 
-# Environment variables
+## License
 
-- LINTER_RULES_PATH
-  - .swift-format or none
-
+MIT License
