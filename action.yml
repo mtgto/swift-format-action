@@ -1,0 +1,12 @@
+name: 'swift-format'
+description: 'Lint and format by https://github.com/apple/swift-format'
+inputs:
+  configurationFile:
+    required: false
+    default: ''
+  allFiles:
+    required: false
+    default: false
+runs:
+  using: docker
+  image: Dockerfile
