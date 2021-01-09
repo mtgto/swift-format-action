@@ -1,4 +1,4 @@
-#!/bin/bash -ux
+#!/bin/bash -u
 if [ "${INPUT_AUTO_CORRECT:-}" = "true" ]; then
   auto_correct=1
   arguments=(format --in-place)
