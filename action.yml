@@ -16,4 +16,4 @@ inputs:
 
 runs:
   using: docker
-  image: Dockerfile
+  image: 'docker://mtgto/swift-format-action:latest'
