@@ -11,13 +11,13 @@ if [ -f "${INPUT_CONFIGURATION_FILE:-}" ]; then
   arguments+=(--configuration "${INPUT_CONFIGURATION_FILE}")
 fi
 if [ "${INPUT_ALL_FILES:-}" = "true" ]; then
-  SOURCES=($(git ls-files -- "*.swift"))
+  SOURCES=$(git ls-files "*.swift" | xargs)
 elif [ -n "${GITHUB_BASE_REF:-}" ]; then
   # pull request
   git fetch --depth 1 origin "${GITHUB_BASE_REF}"
-  SOURCES=($(git diff "origin/${GITHUB_BASE_REF}" HEAD --diff-filter=AM --name-only -- "*.swift"))
+  SOURCES=$(git diff "origin/${GITHUB_BASE_REF}" HEAD --diff-filter=AM --name-only -- "*.swift" | xargs)
 else
-  SOURCES=($(git diff HEAD^ --diff-filter=AM --name-only -- "*.swift"))
+  SOURCES=$(git diff HEAD^ --diff-filter=AM --name-only -- "*.swift" | xargs)
 fi
 if [ -z "${SOURCES}" ]; then
   # No swift file is target.
