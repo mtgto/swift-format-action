@@ -1,4 +1,4 @@
-#!/bin/bash -u
+#!/bin/bash -ux
 if [ "${INPUT_AUTO_CORRECT:-}" = "true" ]; then
   auto_correct=1
   arguments=(format --in-place)
@@ -11,7 +11,7 @@ if [ -f "${INPUT_CONFIGURATION_FILE:-}" ]; then
   arguments+=(--configuration "${INPUT_CONFIGURATION_FILE}")
 fi
 if [ "${INPUT_ALL_FILES:-}" = "true" ]; then
-  arguments+=(--recursive .)
+  arguments+=($(git ls-files -- "*.swift"))
 elif [ -n "${GITHUB_BASE_REF:-}" ]; then
   # pull request
   git fetch --depth 1 origin "${GITHUB_BASE_REF}"
