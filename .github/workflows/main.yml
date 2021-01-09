@@ -28,7 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Lint
         uses: mtgto/swift-format-action@main
-        # with:
+        with:
           # configuration_file: .swift-format
           # all_files: false
           # auto_correct: false
