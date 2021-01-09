@@ -1,4 +1,4 @@
-#!/bin/bash -ux
+#!/bin/bash -u
 if [ "${INPUT_AUTO_CORRECT:-}" = "true" ]; then
   auto_correct=1
   arguments=(format --in-place)
@@ -11,14 +11,19 @@ if [ -f "${INPUT_CONFIGURATION_FILE:-}" ]; then
   arguments+=(--configuration "${INPUT_CONFIGURATION_FILE}")
 fi
 if [ "${INPUT_ALL_FILES:-}" = "true" ]; then
-  arguments+=($(git ls-files -- "*.swift"))
+  SOURCES=($(git ls-files -- "*.swift"))
 elif [ -n "${GITHUB_BASE_REF:-}" ]; then
   # pull request
   git fetch --depth 1 origin "${GITHUB_BASE_REF}"
-  arguments+=($(git diff "origin/${GITHUB_BASE_REF}" HEAD --diff-filter=AM --name-only -- "*.swift"))
+  SOURCES=($(git diff "origin/${GITHUB_BASE_REF}" HEAD --diff-filter=AM --name-only -- "*.swift"))
 else
-  arguments+=($(git diff HEAD^ --diff-filter=AM --name-only -- "*.swift"))
+  SOURCES=($(git diff HEAD^ --diff-filter=AM --name-only -- "*.swift"))
 fi
+if [ -z "${SOURCES}" ]; then
+  # No swift file is target.
+  exit
+fi
+arguments+=($SOURCES)
 
 # Treat warnings as error (exit code = 1)
 OUTPUT=$(swift-format "${arguments[@]}" 2>&1)
