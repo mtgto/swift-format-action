@@ -1,0 +1,19 @@
+{
+  "name": "swift-format-action",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mtgto/swift-format-action.git",
+  "author": "mtgto <hogerappa@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "ncc build index.ts --minify --license LICENSE.txt --out ."
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.27.0",
+    "typescript": "^4.1.3"
+  }
+}

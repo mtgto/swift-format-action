@@ -15,5 +15,5 @@ inputs:
     default: -1
 
 runs:
-  using: docker
-  image: 'docker://mtgto/swift-format-action:latest'
+  using: node12
+  main: index.js
