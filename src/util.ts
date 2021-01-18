@@ -1,8 +1,7 @@
 import * as core from "@actions/core";
-import { execFile, spawn } from "child_process";
-import { promisify } from "util";
+import { spawn } from "child_process";
 
-const getInputString = (name: string, defaultValue: string): string => {
+export const getInputString = (name: string, defaultValue: string): string => {
   const value = core.getInput(name);
   if (value === "") {
     return defaultValue;
@@ -10,7 +9,10 @@ const getInputString = (name: string, defaultValue: string): string => {
   return value;
 };
 
-const getInputBoolean = (name: string, defaultValue: boolean): boolean => {
+export const getInputBoolean = (
+  name: string,
+  defaultValue: boolean
+): boolean => {
   const stringValue = getInputString(name, String(defaultValue));
   if (stringValue.match(/^y|Y|yes|Yes|true|True|on|On|ON$/)) {
     return true;
@@ -20,7 +22,7 @@ const getInputBoolean = (name: string, defaultValue: boolean): boolean => {
   throw Error(`${stringValue} is not a valid boolean value`);
 };
 
-const getInputNumber = (name: string, defaultValue: number): number => {
+export const getInputNumber = (name: string, defaultValue: number): number => {
   const stringValue = getInputString(name, String(defaultValue));
   const value = Number.parseInt(stringValue);
   if (value === NaN) {
@@ -29,7 +31,7 @@ const getInputNumber = (name: string, defaultValue: number): number => {
   return value;
 };
 
-const executeCommand = (
+export const executeCommand = (
   command: string,
   args: ReadonlyArray<string> = []
 ): Promise<{ stdout: string; stderr: string; code: number }> => {
@@ -44,20 +46,3 @@ const executeCommand = (
     });
   });
 };
-
-const configurationFile = getInputString("configuration_file", "");
-const allFiles = getInputBoolean("all_files", false);
-const autoCorrect = getInputBoolean("auto_correct", false);
-const maxWarnings = getInputNumber("max_warnings", -1);
-
-const run = async () => {
-  await executeCommand("git", ["version"]).then((result) =>
-    console.log(result)
-  );
-  await executeCommand("ls", ["-l"]).then((result) => console.log(result));
-  await executeCommand("./swift-format", ["--version"]).then((result) =>
-    console.log(result)
-  );
-};
-
-run();

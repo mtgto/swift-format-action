@@ -7,14 +7,21 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "ncc build index.ts --minify --license LICENSE.txt --out ."
+    "test": "jest",
+    "build": "ncc build src/index.ts --minify --license LICENSE.txt --out ."
   },
   "dependencies": {
     "@actions/core": "^1.2.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-typescript": "^7.12.7",
+    "@types/jest": "^26.0.20",
     "@types/node": "^14.14.21",
     "@vercel/ncc": "^0.27.0",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
     "typescript": "^4.1.3"
   }
 }
