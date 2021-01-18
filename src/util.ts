@@ -25,7 +25,7 @@ export const getInputBoolean = (
 export const getInputNumber = (name: string, defaultValue: number): number => {
   const stringValue = getInputString(name, String(defaultValue));
   const value = Number.parseInt(stringValue);
-  if (value === NaN) {
+  if (isNaN(value)) {
     throw Error(`${stringValue} is not a valid number value`);
   }
   return value;
