@@ -3,6 +3,9 @@ swift-format-action
 
 GitHub Action to run [apple/swift-format](https://github.com/apple/swift-format).
 
+NOTE: This repository includes the executable binary of the `swift-format` which distributed under Apache License 2.0.
+See `LICENSES/LICENSE.txt`.
+
 # GitHub Action Workflow Examples
 
 ## Lint only
