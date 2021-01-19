@@ -21,7 +21,9 @@ const run = async () => {
     await executeCommand("git", ["version"]).then((result) =>
       console.log(result)
     );
-    await executeCommand("ls", ["-l"]).then((result) => console.log(result));
+    await executeCommand("swift-format", []).then((result) =>
+      console.log(result)
+    );
     await executeCommand("./swift-format", ["--version"]).then((result) =>
       console.log(result)
     );

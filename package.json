@@ -8,10 +8,11 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=index.js"
+    "build": "esbuild src/index.ts --bundle --platform=node --target=es2019,node14.15.0 --outfile=index.js"
   },
   "dependencies": {
-    "@actions/core": "^1.2.6"
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
