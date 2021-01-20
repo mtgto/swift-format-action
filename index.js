@@ -191,12 +191,12 @@ var require_core = __commonJS((exports2) => {
   var file_command_1 = require_file_command();
   var utils_1 = require_utils();
   var os = __importStar(require("os"));
-  var path2 = __importStar(require("path"));
-  var ExitCode3;
-  (function(ExitCode4) {
-    ExitCode4[ExitCode4["Success"] = 0] = "Success";
-    ExitCode4[ExitCode4["Failure"] = 1] = "Failure";
-  })(ExitCode3 = exports2.ExitCode || (exports2.ExitCode = {}));
+  var path3 = __importStar(require("path"));
+  var ExitCode2;
+  (function(ExitCode3) {
+    ExitCode3[ExitCode3["Success"] = 0] = "Success";
+    ExitCode3[ExitCode3["Failure"] = 1] = "Failure";
+  })(ExitCode2 = exports2.ExitCode || (exports2.ExitCode = {}));
   function exportVariable(name, val) {
     const convertedVal = utils_1.toCommandValue(val);
     process.env[name] = convertedVal;
@@ -221,7 +221,7 @@ var require_core = __commonJS((exports2) => {
     } else {
       command_1.issueCommand("add-path", {}, inputPath);
     }
-    process.env["PATH"] = `${inputPath}${path2.delimiter}${process.env["PATH"]}`;
+    process.env["PATH"] = `${inputPath}${path3.delimiter}${process.env["PATH"]}`;
   }
   exports2.addPath = addPath;
   function getInput2(name, options) {
@@ -241,7 +241,7 @@ var require_core = __commonJS((exports2) => {
   }
   exports2.setCommandEcho = setCommandEcho;
   function setFailed(message) {
-    process.exitCode = ExitCode3.Failure;
+    process.exitCode = ExitCode2.Failure;
     error(message);
   }
   exports2.setFailed = setFailed;
@@ -326,12 +326,12 @@ var require_io_util = __commonJS((exports2) => {
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   };
-  var _a;
+  var _a2;
   Object.defineProperty(exports2, "__esModule", {value: true});
   var assert_1 = require("assert");
   var fs = require("fs");
-  var path2 = require("path");
-  _a = fs.promises, exports2.chmod = _a.chmod, exports2.copyFile = _a.copyFile, exports2.lstat = _a.lstat, exports2.mkdir = _a.mkdir, exports2.readdir = _a.readdir, exports2.readlink = _a.readlink, exports2.rename = _a.rename, exports2.rmdir = _a.rmdir, exports2.stat = _a.stat, exports2.symlink = _a.symlink, exports2.unlink = _a.unlink;
+  var path3 = require("path");
+  _a2 = fs.promises, exports2.chmod = _a2.chmod, exports2.copyFile = _a2.copyFile, exports2.lstat = _a2.lstat, exports2.mkdir = _a2.mkdir, exports2.readdir = _a2.readdir, exports2.readlink = _a2.readlink, exports2.rename = _a2.rename, exports2.rmdir = _a2.rmdir, exports2.stat = _a2.stat, exports2.symlink = _a2.symlink, exports2.unlink = _a2.unlink;
   exports2.IS_WINDOWS = process.platform === "win32";
   function exists(fsPath) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -368,7 +368,7 @@ var require_io_util = __commonJS((exports2) => {
   function mkdirP(fsPath, maxDepth = 1e3, depth = 1) {
     return __awaiter(this, void 0, void 0, function* () {
       assert_1.ok(fsPath, "a path argument must be provided");
-      fsPath = path2.resolve(fsPath);
+      fsPath = path3.resolve(fsPath);
       if (depth >= maxDepth)
         return exports2.mkdir(fsPath);
       try {
@@ -377,7 +377,7 @@ var require_io_util = __commonJS((exports2) => {
       } catch (err) {
         switch (err.code) {
           case "ENOENT": {
-            yield mkdirP(path2.dirname(fsPath), maxDepth, depth + 1);
+            yield mkdirP(path3.dirname(fsPath), maxDepth, depth + 1);
             yield exports2.mkdir(fsPath);
             return;
           }
@@ -408,7 +408,7 @@ var require_io_util = __commonJS((exports2) => {
       }
       if (stats && stats.isFile()) {
         if (exports2.IS_WINDOWS) {
-          const upperExt = path2.extname(filePath).toUpperCase();
+          const upperExt = path3.extname(filePath).toUpperCase();
           if (extensions.some((validExt) => validExt.toUpperCase() === upperExt)) {
             return filePath;
           }
@@ -432,11 +432,11 @@ var require_io_util = __commonJS((exports2) => {
         if (stats && stats.isFile()) {
           if (exports2.IS_WINDOWS) {
             try {
-              const directory = path2.dirname(filePath);
-              const upperName = path2.basename(filePath).toUpperCase();
+              const directory = path3.dirname(filePath);
+              const upperName = path3.basename(filePath).toUpperCase();
               for (const actualName of yield exports2.readdir(directory)) {
                 if (upperName === actualName.toUpperCase()) {
-                  filePath = path2.join(directory, actualName);
+                  filePath = path3.join(directory, actualName);
                   break;
                 }
               }
@@ -500,7 +500,7 @@ var require_io = __commonJS((exports2) => {
   };
   Object.defineProperty(exports2, "__esModule", {value: true});
   var childProcess = require("child_process");
-  var path2 = require("path");
+  var path3 = require("path");
   var util_1 = require("util");
   var ioUtil = require_io_util();
   var exec2 = util_1.promisify(childProcess.exec);
@@ -511,7 +511,7 @@ var require_io = __commonJS((exports2) => {
       if (destStat && destStat.isFile() && !force) {
         return;
       }
-      const newDest = destStat && destStat.isDirectory() ? path2.join(dest, path2.basename(source)) : dest;
+      const newDest = destStat && destStat.isDirectory() ? path3.join(dest, path3.basename(source)) : dest;
       if (!(yield ioUtil.exists(source))) {
         throw new Error(`no such file or directory: ${source}`);
       }
@@ -523,7 +523,7 @@ var require_io = __commonJS((exports2) => {
           yield cpDirRecursive(source, newDest, 0, force);
         }
       } else {
-        if (path2.relative(source, newDest) === "") {
+        if (path3.relative(source, newDest) === "") {
           throw new Error(`'${newDest}' and '${source}' are the same file`);
         }
         yield copyFile(source, newDest, force);
@@ -536,7 +536,7 @@ var require_io = __commonJS((exports2) => {
       if (yield ioUtil.exists(dest)) {
         let destExists = true;
         if (yield ioUtil.isDirectory(dest)) {
-          dest = path2.join(dest, path2.basename(source));
+          dest = path3.join(dest, path3.basename(source));
           destExists = yield ioUtil.exists(dest);
         }
         if (destExists) {
@@ -547,7 +547,7 @@ var require_io = __commonJS((exports2) => {
           }
         }
       }
-      yield mkdirP(path2.dirname(dest));
+      yield mkdirP(path3.dirname(dest));
       yield ioUtil.rename(source, dest);
     });
   }
@@ -613,7 +613,7 @@ var require_io = __commonJS((exports2) => {
       try {
         const extensions = [];
         if (ioUtil.IS_WINDOWS && process.env.PATHEXT) {
-          for (const extension of process.env.PATHEXT.split(path2.delimiter)) {
+          for (const extension of process.env.PATHEXT.split(path3.delimiter)) {
             if (extension) {
               extensions.push(extension);
             }
@@ -631,14 +631,14 @@ var require_io = __commonJS((exports2) => {
         }
         const directories = [];
         if (process.env.PATH) {
-          for (const p of process.env.PATH.split(path2.delimiter)) {
+          for (const p of process.env.PATH.split(path3.delimiter)) {
             if (p) {
               directories.push(p);
             }
           }
         }
         for (const directory of directories) {
-          const filePath = yield ioUtil.tryGetExecutablePath(directory + path2.sep + tool, extensions);
+          const filePath = yield ioUtil.tryGetExecutablePath(directory + path3.sep + tool, extensions);
           if (filePath) {
             return filePath;
           }
@@ -742,7 +742,7 @@ var require_toolrunner = __commonJS((exports2) => {
   var os = __importStar(require("os"));
   var events = __importStar(require("events"));
   var child = __importStar(require("child_process"));
-  var path2 = __importStar(require("path"));
+  var path3 = __importStar(require("path"));
   var io = __importStar(require_io());
   var ioUtil = __importStar(require_io_util());
   var IS_WINDOWS = process.platform === "win32";
@@ -946,7 +946,7 @@ var require_toolrunner = __commonJS((exports2) => {
     exec() {
       return __awaiter(this, void 0, void 0, function* () {
         if (!ioUtil.isRooted(this.toolPath) && (this.toolPath.includes("/") || IS_WINDOWS && this.toolPath.includes("\\"))) {
-          this.toolPath = path2.resolve(process.cwd(), this.options.cwd || process.cwd(), this.toolPath);
+          this.toolPath = path3.resolve(process.cwd(), this.options.cwd || process.cwd(), this.toolPath);
         }
         this.toolPath = yield io.which(this.toolPath, true);
         return new Promise((resolve, reject) => {
@@ -1255,44 +1255,137 @@ var executeCommand = async (command, args = []) => {
 };
 
 // src/index.ts
-var import_core2 = __toModule(require_core());
+var import_core = __toModule(require_core());
 
 // src/git.ts
-var import_core = __toModule(require_core());
 var lsFiles = async (filePattern) => {
   const result = await executeCommand("git", ["ls-files", "-z", filePattern]);
-  if (result.code !== import_core.ExitCode.Success) {
-    throw Error(`git returns non-zero code: ${result.code}`);
-  }
-  return result.stdout.split("\0").filter((s) => s.length > 0);
+  return splitNull(result.stdout);
 };
+var compareFiles = async (baseRef) => {
+  const result = await executeCommand("git", [
+    "diff",
+    "-z",
+    `origin/${baseRef}`,
+    "HEAD",
+    "--diff-filter=AM",
+    "--name-only",
+    "--",
+    "*.swift"
+  ]);
+  return splitNull(result.stdout);
+};
+var diffFiles = async () => {
+  const result = await executeCommand("git", [
+    "diff",
+    "-z",
+    "HEAD^",
+    "--diff-filter=AM",
+    "--name-only",
+    "--",
+    "*.swift"
+  ]);
+  return splitNull(result.stdout);
+};
+var splitNull = (s) => s.split("\0").filter((s2) => s2.length > 0);
 
 // src/index.ts
 var import_process = __toModule(require("process"));
 var import_os = __toModule(require("os"));
+var path2 = __toModule(require("path"));
+
+// src/swift-format.ts
 var path = __toModule(require("path"));
+var parseOutput = (cwd, output) => {
+  let warnings = [];
+  let errors = [];
+  output.split("\n").forEach((line) => {
+    if (line === "") {
+      return;
+    }
+    const words = line.split(" ");
+    const [filePath, lineString, colString] = words[0].split(":");
+    const file = path.isAbsolute(filePath) ? path.relative(cwd, filePath) : filePath;
+    const isWarning = words[1] === "warning:";
+    const isError = words[1] === "error:";
+    const message = words.slice(2).join(" ");
+    if (isWarning) {
+      warnings.push({
+        path: file,
+        line: Number(lineString),
+        col: Number(colString),
+        message
+      });
+    } else if (isError) {
+      errors.push({
+        path: file,
+        line: Number(lineString),
+        col: Number(colString),
+        message
+      });
+    } else {
+      throw new Error(`Fail to parse output of swift-format: "${line}"`);
+    }
+  });
+  return {warnings, errors};
+};
+
+// src/index.ts
 var configurationFile = getInputString("configuration_file", "");
 var allFiles = getInputBoolean("all_files", false);
 var autoCorrect = getInputBoolean("auto_correct", false);
 var maxWarnings = getInputNumber("max_warnings", -1);
+var _a;
+var githubBaseRef = (_a = process.env.GITHUB_BASE_REF) != null ? _a : "";
 var run = async () => {
+  var _a2;
   try {
-    const swiftFormat = path.join(import_os.tmpdir(), "swift-format");
+    const swiftFormat = path2.join(import_os.tmpdir(), "swift-format");
     await executeCommand("sh", [
       "-c",
       `wget -q -O - "https://docs.google.com/uc?export=download&id=1Pq0P41fVYnFfOarwNTh-EQOevBbVbqYQ" | tar zxf - -C ${import_os.tmpdir()} --strip-components 1 swift-format-5.3/swift-format`
     ]);
-    await executeCommand(swiftFormat, ["--version"]);
-    import_process.exit(1);
-    if (allFiles) {
-      const files = await lsFiles("*.swift");
+    let args = [];
+    if (autoCorrect) {
+      args.push("format", "--in-place");
+    } else {
+      args.push("lint");
     }
-    await executeCommand("git", ["version"]).then((result) => console.log(result));
-    await executeCommand("swift-format", []).then((result) => console.log(result));
-    await executeCommand("./swift-format", ["--version"]).then((result) => console.log(result));
+    if (configurationFile.length > 0) {
+      args.push("--configuration", configurationFile);
+    }
+    let sources;
+    if (allFiles) {
+      sources = await lsFiles("*.swift");
+    } else if (githubBaseRef.length > 0) {
+      await executeCommand("git", [
+        "fetch",
+        "--depth",
+        "1",
+        "origin",
+        githubBaseRef
+      ]);
+      sources = await compareFiles(githubBaseRef);
+    } else {
+      sources = await diffFiles();
+    }
+    if (sources.length === 0) {
+      import_process.exit;
+    }
+    const result = await executeCommand(swiftFormat, args.concat(sources));
+    const lintResult = parseOutput((_a2 = process.env.GITHUB_WORKSPACE) != null ? _a2 : "", result.stderr);
+    lintResult.errors.forEach((alert) => {
+      import_core.error(`file=${alert.path},line=${alert.line},col=${alert.col}::${alert.message}`);
+    });
+    lintResult.warnings.forEach((alert) => {
+      import_core.warning(`file=${alert.path},line=${alert.line},col=${alert.col}::${alert.message}`);
+    });
+    if (maxWarnings !== -1 && lintResult.warnings.length > maxWarnings) {
+      import_process.exit(import_core.ExitCode.Failure);
+    }
   } catch (error) {
     console.error(`Unhandled error ${error}`);
-    import_process.exit(import_core2.ExitCode.Failure);
+    import_process.exit(import_core.ExitCode.Failure);
   }
 };
 run();

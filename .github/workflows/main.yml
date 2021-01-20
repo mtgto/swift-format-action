@@ -29,7 +29,7 @@ jobs:
       - name: Lint
         uses: mtgto/swift-format-action@native
         with:
-          configuration_file: .swift-format
-          all_files: False
+          all_files: Yes
           auto_correct: no
           max_warnings: 0
+          step_debug: true

@@ -12,7 +12,7 @@ export const getInputString = (name: string, defaultValue: string): string => {
 
 export const getInputBoolean = (
   name: string,
-  defaultValue: boolean
+  defaultValue: boolean,
 ): boolean => {
   const stringValue = getInputString(name, String(defaultValue));
   if (stringValue.match(/^y|Y|yes|Yes|true|True|on|On|ON$/)) {
@@ -34,7 +34,7 @@ export const getInputNumber = (name: string, defaultValue: number): number => {
 
 export const executeCommand = async (
   command: string,
-  args: string[] = []
+  args: string[] = [],
 ): Promise<{ stdout: string; stderr: string; code: number }> => {
   let stdout: string = "";
   let stderr: string = "";

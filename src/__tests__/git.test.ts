@@ -1,4 +1,3 @@
-import { timeStamp } from "console";
 import { lsFiles } from "../git";
 
 test("collect swift files from git repository", async () => {
