@@ -32,4 +32,3 @@ jobs:
           all_files: Yes
           auto_correct: no
           max_warnings: 0
-          step_debug: true
