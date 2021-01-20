@@ -1,5 +1,6 @@
 import * as core from "@actions/core";
-import { spawn } from "child_process";
+import { exec } from "@actions/exec";
+import { Transform, Writable } from "stream";
 
 export const getInputString = (name: string, defaultValue: string): string => {
   const value = core.getInput(name);
@@ -31,18 +32,21 @@ export const getInputNumber = (name: string, defaultValue: number): number => {
   return value;
 };
 
-export const executeCommand = (
+export const executeCommand = async (
   command: string,
-  args: ReadonlyArray<string> = []
+  args: string[] = []
 ): Promise<{ stdout: string; stderr: string; code: number }> => {
-  return new Promise((resolve) => {
-    let stdout = "";
-    let stderr = "";
-    const process = spawn(command, args);
-    process.stdout.on("data", (data) => (stdout += data));
-    process.stderr.on("data", (data) => (stderr += data));
-    process.on("close", (code) => {
-      resolve({ stdout, stderr, code: code ?? core.ExitCode.Failure });
-    });
+  let stdout: string = "";
+  let stderr: string = "";
+  const code = await exec(command, args, {
+    listeners: {
+      stdout: (data: Buffer) => {
+        stdout += data.toString();
+      },
+      stderr: (data: Buffer) => {
+        stderr += data.toString();
+      },
+    },
   });
+  return { stdout, stderr, code };
 };
