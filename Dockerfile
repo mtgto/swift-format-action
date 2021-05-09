@@ -1,4 +1,4 @@
-FROM mtgto/swift-format:5.3
+FROM mtgto/swift-format:5.4
 RUN env DEBIAN_FRONTEND=noninteractive apt-get update && \
 env DEBIAN_FRONTEND=noninteractive apt-get install -y git && \
 env DEBIAN_FRONTEND=noninteractive apt-get clean && \
