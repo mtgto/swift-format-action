@@ -31,3 +31,4 @@ jobs:
           context: .
           push: true
           tags: mtgto/swift-format-action:latest
+          platforms: linux/amd64
