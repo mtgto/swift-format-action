@@ -16,4 +16,4 @@ inputs:
 
 runs:
   using: docker
-  image: 'docker://ghcr.io/mtgto/swift-format-action:latest'
+  image: 'docker://ghcr.io/mtgto/swift-format-action:v1.0.0'
