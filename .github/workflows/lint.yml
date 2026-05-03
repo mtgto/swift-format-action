@@ -30,6 +30,6 @@ jobs:
         uses: mtgto/swift-format-action@main
         with:
           # configuration_file: .swift-format
-          # all_files: false
+          all_files: true
           # auto_correct: false
           max_warnings: 0

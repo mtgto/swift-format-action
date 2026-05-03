@@ -17,7 +17,8 @@ elif [ -n "${GITHUB_BASE_REF:-}" ]; then
   git fetch --depth 1 origin "${GITHUB_BASE_REF}"
   SOURCES=$(git diff "origin/${GITHUB_BASE_REF}" HEAD --diff-filter=AM --name-only -- "*.swift" | xargs)
 else
-  SOURCES=$(git diff HEAD^ --diff-filter=AM --name-only -- "*.swift" | xargs)
+  SOURCES=$(git diff HEAD^ --diff-filter=AM --name-only -- "*.swift") || exit 1
+  SOURCES=$(echo "$SOURCES" | xargs)
 fi
 if [ -z "${SOURCES}" ]; then
   # No swift file is target.
