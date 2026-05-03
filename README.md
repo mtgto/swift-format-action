@@ -19,13 +19,9 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          # Full git history is needed to get a proper list of changed files
-          fetch-depth: 0
-      - name: Lint
-        uses: mtgto/swift-format-action@main
+      - uses: actions/checkout@v6
+
+      - uses: mtgto/swift-format-action@main
         with:
           # Please comment out if you won't specify configuration file
           configuration_file: .swift-format
@@ -47,13 +43,8 @@ jobs:
     name: Auto Correct
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          # Full git history is needed to get a proper list of changed files
-          fetch-depth: 0
-      - name: Lint
-        uses: mtgto/swift-format-action@main
+      - uses: actions/checkout@v6
+      - uses: mtgto/swift-format-action@main
         with:
           # Please comment out if you won't specify configuration file
           configuration_file: .swift-format
