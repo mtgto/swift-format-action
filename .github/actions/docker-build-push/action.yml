@@ -1,0 +1,32 @@
+name: Docker build and push to GHCR
+description: Build and push Docker image to GHCR
+
+inputs:
+  tags:
+    required: true
+    description: Newline-separated Docker image tags to push
+
+runs:
+  using: composite
+  steps:
+    -
+      name: Set up QEMU
+      uses: docker/setup-qemu-action@v4
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+    -
+      name: Login to GitHub Container Registry
+      uses: docker/login-action@v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ github.token }}
+    -
+      name: Build and push
+      uses: docker/build-push-action@v7
+      with:
+        context: .
+        push: true
+        platforms: linux/amd64
+        tags: ${{ inputs.tags }}

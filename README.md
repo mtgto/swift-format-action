@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: mtgto/swift-format-action@main
+      - uses: mtgto/swift-format-action@v1.0.0
         with:
           # Please comment out if you won't specify configuration file
           configuration_file: .swift-format
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: mtgto/swift-format-action@main
+      - uses: mtgto/swift-format-action@v1.0.0
         with:
           # Please comment out if you won't specify configuration file
           configuration_file: .swift-format
