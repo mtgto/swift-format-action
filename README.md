@@ -19,7 +19,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: mtgto/swift-format-action@v1.1.0
         with:
@@ -50,7 +50,7 @@ jobs:
     name: Auto Correct
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: mtgto/swift-format-action@v1.1.0
         with:
           # Please comment out if you won't specify configuration file
