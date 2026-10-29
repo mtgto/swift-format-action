@@ -1,8 +1,8 @@
-FROM --platform=linux/amd64 ghcr.io/mtgto/swift-format:6.2 AS swift-format
+FROM --platform=linux/amd64 ghcr.io/mtgto/swift-format:6.4 AS swift-format
 
-FROM --platform=linux/amd64 debian:bookworm-slim
+FROM --platform=linux/amd64 debian:trixie-slim
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git && \
+    apt-get install -y --no-install-recommends ca-certificates git && \
     rm -rf /var/lib/apt/lists/* && \
     git config --system --add safe.directory /github/workspace
 COPY --from=swift-format /usr/bin/swift-format /usr/bin/swift-format

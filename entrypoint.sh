@@ -14,8 +14,9 @@ if [ "${INPUT_ALL_FILES:-}" = "true" ]; then
   SOURCES=$(git ls-files "*.swift" | xargs)
 elif [ -n "${GITHUB_BASE_REF:-}" ]; then
   # pull request
-  git fetch --depth 1 origin "${GITHUB_BASE_REF}"
-  SOURCES=$(git diff "origin/${GITHUB_BASE_REF}" HEAD --diff-filter=AM --name-only -- "*.swift" | xargs)
+  git fetch --depth 1 origin "${GITHUB_BASE_REF}" || exit 1
+  SOURCES=$(git diff "origin/${GITHUB_BASE_REF}" HEAD --diff-filter=AM --name-only -- "*.swift") || exit 1
+  SOURCES=$(echo "$SOURCES" | xargs)
 else
   SOURCES=$(git diff HEAD^ --diff-filter=AM --name-only -- "*.swift") || exit 1
   SOURCES=$(echo "$SOURCES" | xargs)
