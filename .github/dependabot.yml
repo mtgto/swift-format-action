@@ -12,3 +12,8 @@ updates:
       github-actions:
         patterns:
           - "*"
+  # Updates both the tag and the digest of FROM in Dockerfile
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
