@@ -18,9 +18,9 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
       -
         name: Build and push
-        uses: ./.github/actions/docker-build-push
+        uses: $/.github/actions/docker-build-push
         with:
           tags: ghcr.io/mtgto/swift-format-action:latest

@@ -18,7 +18,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
       -
         name: Validate version format
         run: |
@@ -28,16 +28,22 @@ jobs:
             exit 1
           fi
       -
+        id: build
         name: Build and push Docker image
-        uses: ./.github/actions/docker-build-push
+        uses: $/.github/actions/docker-build-push
         with:
           tags: ghcr.io/mtgto/swift-format-action:${{ inputs.version }}
       -
         name: Create release commit and tag
         run: |
           TAG="${{ inputs.version }}"
+          DIGEST="${{ steps.build.outputs.digest }}"
+          if ! echo "${DIGEST}" | grep -qP '^sha256:[0-9a-f]{64}$'; then
+            echo "Invalid image digest: ${DIGEST}"
+            exit 1
+          fi
 
-          sed -i "s|image: 'docker://ghcr.io/mtgto/swift-format-action:.*'|image: 'docker://ghcr.io/mtgto/swift-format-action:${TAG}'|" action.yml
+          sed -i "s|image: 'docker://ghcr.io/mtgto/swift-format-action:.*'|image: 'docker://ghcr.io/mtgto/swift-format-action:${TAG}@${DIGEST}'|" action.yml
 
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
