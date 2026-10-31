@@ -50,8 +50,13 @@ jobs:
           git add action.yml
           git commit -m "Release ${TAG}"
 
+          # Move the floating major tag (e.g. v1) to the release commit
+          MAJOR="${TAG%%.*}"
+
           git tag "${TAG}"
+          git tag -f "${MAJOR}"
           git push origin "${TAG}"
+          git push -f origin "${MAJOR}"
       -
         name: Create GitHub Release
         run: |
