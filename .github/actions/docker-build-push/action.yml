@@ -6,6 +6,11 @@ inputs:
     required: true
     description: Newline-separated Docker image tags to push
 
+outputs:
+  digest:
+    description: Digest of the pushed image
+    value: ${{ steps.build.outputs.digest }}
+
 runs:
   using: composite
   steps:
@@ -23,6 +28,7 @@ runs:
         username: ${{ github.repository_owner }}
         password: ${{ github.token }}
     -
+      id: build
       name: Build and push
       uses: docker/build-push-action@v7.4.0
       with:
