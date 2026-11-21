@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ghcr.io/mtgto/swift-format:6.4@sha256:334bf8f1d4a92c44d20afe20a54577e6c79002c431782c7c4d18c401f5246d08 AS swift-format
+FROM --platform=linux/amd64 ghcr.io/mtgto/swift-format:6.4@sha256:45e3da418bfc758b68a7c9507499528b16b41e82563d9b94e52c516eb47a9385 AS swift-format
 
 FROM --platform=linux/amd64 debian:trixie-slim@sha256:f6b08b09a05725f9431502d3b5714f5c4576e82c1a84fa1debe0c24a7e0c3ec4
 RUN apt-get update && \
